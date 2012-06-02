@@ -1,17 +1,17 @@
+/*!
+ * Simple jQuery Countdown
+ * https://github.com/jonasanx/jQuery-simple-countdown
+ * @author Jonathan J. Flores
+ */
 ;(function ($) {
   $.scountdown = function (element, options) {
     var plugin = this;
-
-    var lastings = {
-      days    : 24*60*60,
-      hours   : 60*60,
-      minutes : 60
-    }
 
     plugin.init = function () {
 
       var settings = $.extend({}, {
         timestamp: 0,
+        time     : { days: 24*60*60, hours: 60*60, minutes: 60 },
         callback : function(){}
       }, options);
 
@@ -21,12 +21,14 @@
 
         if(timeLeft < 0) timeLeft = 0;
 
-        for (key in lastings) {
-          var y = lastings[key];
+        for (key in settings.time) {
+          var y = settings.time[key];
           var x = digits[key] = add_leading_zero(Math.floor(timeLeft / y));
           timeLeft -= x * y;
         }
 
+        // Return days, hours, minutes, and seconds.
+        // TODO: arguments should be passed dynamically.
         settings.callback(digits.days, digits.hours, digits.minutes, add_leading_zero(timeLeft));
         setTimeout(countdown, 1000);
       })();
