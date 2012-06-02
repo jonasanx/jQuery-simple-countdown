@@ -21,10 +21,10 @@
 
         if(timeLeft < 0) timeLeft = 0;
 
-        $.each(lastings, function(index, value){
-          digits[index] = add_leading_zero(Math.floor(timeLeft / value));
-          timeLeft -= digits[index] * value;
-        });
+        for( key in lastings ){
+          digits[key] = Math.floor(timeLeft / lastings[key]);
+          timeLeft -= digits[key] * lastings[key];
+        }
 
         settings.callback(digits.days, digits.hours, digits.minutes, add_leading_zero(timeLeft));
         setTimeout(countdown, 1000);
