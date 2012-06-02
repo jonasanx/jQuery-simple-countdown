@@ -7,12 +7,14 @@
   $.scountdown = function (element, options) {
     var plugin = this;
 
-    plugin.init = function () {
+    var time = {
+        days   : 24*60*60,
+        hours  : 60*60,
+        minutes: 60 };
 
+    plugin.init = function () {
       var settings = $.extend({}, {
-        time      : { days: 24*60*60, hours: 60*60, minutes: 60 },
         timestamp : 0,
-        timeReload: 1000,
         callback  : function(){}
       }, options);
 
@@ -22,8 +24,8 @@
 
         if(timeLeft < 0) timeLeft = 0;
 
-        for (key in settings.time) {
-          var y = settings.time[key];
+        for (key in time) {
+          var y = time[key];
           var x = digits[key] = add_leading_zero(Math.floor(timeLeft / y));
           timeLeft -= x * y;
         }
@@ -32,8 +34,7 @@
         // TODO: arguments should be passed dynamically.
         settings.callback(digits.days, digits.hours, digits.minutes, add_leading_zero(timeLeft));
 
-        // Reload each second by default.
-        setTimeout(countdown, settings.timeReload);
+        setTimeout(countdown, 1000);
       })();
 
     }
