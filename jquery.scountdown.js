@@ -21,9 +21,10 @@
 
         if(timeLeft < 0) timeLeft = 0;
 
-        for( key in lastings ){
-          digits[key] = Math.floor(timeLeft / lastings[key]);
-          timeLeft -= digits[key] * lastings[key];
+        for (key in lastings) {
+          var y = lastings[key];
+          var x = digits[key] = add_leading_zero(Math.floor(timeLeft / y));
+          timeLeft -= x * y;
         }
 
         settings.callback(digits.days, digits.hours, digits.minutes, add_leading_zero(timeLeft));
