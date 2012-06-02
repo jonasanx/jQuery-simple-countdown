@@ -10,9 +10,10 @@
     plugin.init = function () {
 
       var settings = $.extend({}, {
-        timestamp: 0,
-        time     : { days: 24*60*60, hours: 60*60, minutes: 60 },
-        callback : function(){}
+        time      : { days: 24*60*60, hours: 60*60, minutes: 60 },
+        timestamp : 0,
+        timeReload: 1000,
+        callback  : function(){}
       }, options);
 
       (function countdown(){
@@ -27,10 +28,12 @@
           timeLeft -= x * y;
         }
 
-        // Return days, hours, minutes, and seconds.
+        // Returns days, hours, minutes, and seconds.
         // TODO: arguments should be passed dynamically.
         settings.callback(digits.days, digits.hours, digits.minutes, add_leading_zero(timeLeft));
-        setTimeout(countdown, 1000);
+
+        // Reload each second by default.
+        setTimeout(countdown, settings.timeReload);
       })();
 
     }
