@@ -6,6 +6,8 @@
 ;(function ($) {
   $.scountdown = function (element, options) {
     var plugin = this;
+    var $element = $(element),
+         element = element;
 
     plugin.init = function () {
 
